@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PackPilot — Interactive Demo</title>
+<style>
+:root{--ink:#1b2d4d;--muted:#56657c;--blue:#4768d8;--line:#dce4f3;--bg:#f7f9ff;--pale:#edf0ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}header{background:white;border-bottom:1px solid var(--line);padding:14px 20px}.top,.wrap{max-width:1120px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-weight:850;font-size:1.3rem;text-decoration:none;color:var(--ink)}.brand span{color:var(--blue)}.top a:last-child{color:var(--blue)}.wrap{padding:28px 18px 70px}h1{font-size:clamp(1.7rem,4vw,2.4rem);letter-spacing:-.05em;margin:0 0 6px}h2{font-size:1.25rem;letter-spacing:-.03em;margin:0 0 12px}h3{margin:0 0 6px}.muted{color:var(--muted)}.small{font-size:.84rem}.banner{background:#e9efff;border:1px solid #cbd7fa;border-radius:12px;padding:12px 16px;margin:16px 0 24px}.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:20px 0}.btn{border:1px solid #cfd9ef;background:white;color:var(--ink);padding:10px 14px;border-radius:10px;font-weight:700}.btn.primary,.btn.active{background:var(--blue);border-color:var(--blue);color:white}.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #94adff;outline-offset:2px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}.card,.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:18px}.metric{font-size:1.7rem;font-weight:800}.layout{display:grid;grid-template-columns:minmax(240px,340px) 1fr;gap:16px}.list{display:grid;gap:8px;max-height:650px;overflow:auto}.order{display:block;text-align:left;width:100%;border:1px solid var(--line);background:#fff;border-radius:11px;padding:12px}.order.selected{border:2px solid var(--blue);background:#f3f5ff}.order strong{display:block}.row{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}.tag{font-size:.76rem;font-weight:750;padding:4px 9px;border-radius:99px;background:#eaf0ff;color:#3552aa}.tag.warn{background:#fff1d6;color:#845a08}.tag.danger{background:#ffe5e7;color:#9b2535}.timeline{display:grid;grid-template-columns:repeat(6,minmax(95px,1fr));gap:6px;margin:18px 0;overflow-x:auto}.step{border-top:4px solid #dce3f2;padding:10px 5px;color:#64738c;font-size:.78rem}.step.done{border-color:#5277dc;color:#234b9d}.step.now{border-color:#36a68b;color:#176650;font-weight:800}.step .symbol{font-size:1.3rem;display:block}.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.fact{background:#f7f9ff;padding:12px;border-radius:9px}.fact strong{display:block}.stack{display:grid;gap:12px}.field{display:grid;gap:4px;font-size:.88rem;font-weight:700}.field input,.field select,.field textarea{padding:10px;border:1px solid #cbd5e7;border-radius:9px;background:#fff;width:100%}.field textarea{min-height:65px}.editor{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}.notice{background:#fff5df;border:1px solid #f0d69a;border-radius:10px;padding:10px 12px;margin:12px 0}.empty{padding:24px;color:var(--muted);text-align:center}.hidden{display:none!important}.toast{margin-top:10px;color:#18634f;font-weight:700}.hint{font-size:.85rem;color:var(--muted)}@media(max-width:740px){.layout,.grid{grid-template-columns:1fr}.facts{grid-template-columns:1fr}.wrap{padding:22px 12px}.timeline{grid-template-columns:repeat(6,100px)}.top{font-size:.85rem}.card,.panel{padding:14px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+/* Crisp, touch-friendly visual language shared with the landing page */
+:root{--ink:#192b4b;--muted:#53647b;--blue:#4568d9;--line:#dfe6f5;--bg:#fafcff;--pale:#f1efff}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.6}
+h1{font-size:clamp(2rem,4vw,3rem)}.banner{background:linear-gradient(120deg,#edf1ff,#f2f0ff);border-color:#d8defb}
+.btn{min-height:44px;border-radius:12px;transition:background .12s,transform .12s}.btn:hover:not(:disabled){transform:translateY(-1px)}.btn:active:not(:disabled){transform:translateY(0)}
+.btn.requested{background:#e9f7f0;color:#1d6d50;border-color:#c3e6d6;cursor:default}
+.card,.panel{border-radius:18px;box-shadow:0 5px 20px #22385b09}.order{min-height:72px}.order:hover{background:#f4f6ff}.identity{background:#edf0ff;color:#314d9e;border-radius:12px;padding:11px 15px}
+.reorder-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:22px}
+.reorder-card{border:1px solid var(--line);border-radius:15px;padding:18px;display:flex;flex-direction:column;gap:10px;background:#fff}
+.reorder-card .btn{margin-top:auto;width:100%}.product-icon{background:linear-gradient(130deg,#f1efff,#eaf6ff);width:52px;height:52px;border-radius:13px;display:grid;place-items:center;font-size:1.6rem}
+.last{padding:10px 12px;background:#f4f6ff;border-radius:10px;font-size:.86rem}.last strong{color:#3655ad}
+@media(max-width:800px){.reorder-grid{grid-template-columns:1fr}.controls .btn{flex:1}.layout{grid-template-columns:1fr}.list{max-height:none}.timeline{grid-template-columns:repeat(6,104px)}}
+</style></head><body>
+<header><div class="top"><a class="brand" href="index.html">Pack<span>Pilot</span></a><a href="index.html">← Back to landing page</a></div></header>
+<main class="wrap">
+<div class="row"><div><h1>Try PackPilot</h1><div class="muted">Explore how packaging orders could be tracked in one place.</div></div><button id="reset" class="btn" type="button">Reset sample data</button></div>
+<div class="banner"><strong>DEMO — 10 fictional orders.</strong> All companies, customers, dates and amounts are made up. Changes save in this browser only. This is not a live service.</div>
+<div class="controls"><button class="btn active" id="salesTab" type="button">Sales team view</button><button class="btn" id="customerTab" type="button">Customer view</button><span id="customerIdentity" class="identity hidden">Customer account: <strong>Luna Retail</strong></span></div>
+<div id="metrics" class="grid"></div><section id="reorderSection" class="panel hidden" style="margin:20px 0"><div class="row"><div><h2>Time to reorder?</h2><p class="muted" style="margin:0">Products you have ordered before. Request a quote before stock runs low.</p></div><span class="tag">Previous orders</span></div><div id="reorderCards" class="reorder-grid"></div><p class="hint">Indicative lead time: 5–20 weeks, depending on the product and delivery method. This is an illustrative range, not a confirmed quote.</p><p id="reorderSaved" class="toast" role="status"></p></section>
+<div class="layout"><section class="panel"><div class="row"><h2>Orders</h2><span id="orderCount" class="tag"></span></div><label class="field">Find an order<input id="search" placeholder="Search order or product"></label><div id="orders" class="list" style="margin-top:12px"></div></section><section class="panel" id="detail"><div class="empty">Choose an order to see its details.</div></section></div>
+<p class="hint" style="margin-top:22px">Prototype limitation: customer access is simulated with one fixed fictional customer account, not a secure login. Staff and customer changes are saved locally on this device. Real account permissions, email notifications and supplier integrations are planned, not implemented.</p>
+</main>
+<script>
+"use strict";
+const KEY="packpilot-demo-v2";
+const CUSTOMER_ACCOUNT="Luna Retail";
+const pastProducts=[{id:"RP-01",name:"Luxury shopping bags",last:"2026-04-12",lead:"12–20 weeks",detail:"Custom printed · 1,000 units"},{id:"RP-02",name:"Voucher gift boxes",last:"2026-01-20",lead:"8–14 weeks",detail:"Printed rigid boxes · 500 units"},{id:"RP-03",name:"Branded tissue paper",last:"2025-11-03",lead:"5–10 weeks",detail:"Printed tissue · 3 reams"}];
+const stages=["Paperwork","Deposit","Production","Shipping","Warehouse","Delivery"];
+const icons=["📄","💳","🏭","🚢","📦","🚚"];
+const seed=[
+["PP-1001","Luna Retail","Printed shopping bags","Sea",2400,1200,2,-6,"2026-11-12","Dublin"],
+["PP-1002","Luna Retail","Gift boxes","Air",1800,900,3,3,"2026-11-05","Dublin"],
+["PP-1003","Oak & Thread","Kraft carrier bags","Rail",3200,1600,1,-3,"2026-11-25","Cork"],
+["PP-1004","Oak & Thread","Tissue paper","Sea",950,0,0,5,"2026-12-02","Cork"],
+["PP-1005","Harbour Gifts","Voucher boxes","Air",1250,625,4,-2,"2026-11-01","Galway"],
+["PP-1006","Harbour Gifts","Ribbon bags","Sea",2100,2100,5,7,"2026-10-29","Galway"],
+["PP-1007","Northline Home","Rigid gift boxes","Rail",4500,2250,2,9,"2026-12-14","Limerick"],
+["PP-1008","Northline Home","Printed mailer boxes","Sea",1650,825,3,-5,"2026-11-09","Limerick"],
+["PP-1009","Bloom & Co","Boutique bags","Air",1750,0,1,4,"2026-11-18","Waterford"],
+["PP-1010","Bloom & Co","Gift tissue","Sea",720,720,5,2,"2026-10-30","Waterford"]
+].map(([id,customer,product,freight,total,paid,stage,offset,eta,city])=>({id,customer,product,freight,total,paid,stage,eta,city,address:city+", Ireland",update:"",internalNote:"",quoteRequested:false,offset}));
+const datePlus=n=>{let d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)};
+seed.forEach(o=>{o.deadline=datePlus(o.offset);delete o.offset});
+function load(){try{let v=JSON.parse(localStorage.getItem(KEY));return Array.isArray(v)&&v.length>=8?v:structuredClone(seed)}catch{return structuredClone(seed)}}
+let data=load(),view="sales",selected=data[0].id;
+let reorderRequests=(()=>{try{return JSON.parse(localStorage.getItem("packpilot-reorders-v2"))||[]}catch{return []}})();
+const $=id=>document.getElementById(id),money=n=>new Intl.NumberFormat("en-IE",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(n);
+const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function save(){localStorage.setItem(KEY,JSON.stringify(data))}
+function daysUntil(date){const today=new Date();today.setHours(0,0,0,0);const d=new Date(date+"T00:00:00");return Math.round((d-today)/86400000)}
+function warning(o){if(o.stage===5)return null;if(o.total-o.paid>0&&o.stage>=2)return "Payment outstanding";if(daysUntil(o.deadline)<0)return "Stage deadline passed";if(daysUntil(o.deadline)<=3)return "Stage deadline soon";return null}
+function visible(){return data.filter(o=>view==="sales"||o.customer===CUSTOMER_ACCOUNT)}
+function draw(){
+$("salesTab").classList.toggle("active",view==="sales");$("customerTab").classList.toggle("active",view==="customer");
+$("customerIdentity").classList.toggle("hidden",view!=="customer");
+$("reorderSection").classList.toggle("hidden",view!=="customer");
+if(view==="customer")drawReorders();
+const v=visible();if(!v.some(o=>o.id===selected))selected=v[0]?.id;
+$("metrics").innerHTML=view==="sales"?
+`<div class="card"><div class="muted">Assigned orders</div><div class="metric">${v.length}</div></div><div class="card"><div class="muted">Need attention</div><div class="metric">${v.filter(warning).length}</div></div><div class="card"><div class="muted">Outstanding payments</div><div class="metric">${money(v.reduce((s,o)=>s+Math.max(0,o.total-o.paid),0))}</div></div>`:
+`<div class="card"><div class="muted">Your orders</div><div class="metric">${v.length}</div></div><div class="card"><div class="muted">In progress</div><div class="metric">${v.filter(o=>o.stage<5).length}</div></div><div class="card"><div class="muted">Balance remaining</div><div class="metric">${money(v.reduce((s,o)=>s+Math.max(0,o.total-o.paid),0))}</div></div>`;
+const term=$("search").value.toLowerCase();const filtered=v.filter(o=>[o.id,o.product,o.customer].some(s=>s.toLowerCase().includes(term)));
+$("orderCount").textContent=filtered.length+" shown";
+$("orders").innerHTML=filtered.length?filtered.map(o=>`<button class="order ${selected===o.id?"selected":""}" data-order="${o.id}"><span class="row"><strong>${escapeHTML(o.customer)}</strong>${view==="sales"&&warning(o)?'<span class="tag warn">Check</span>':""}</span><div class="small muted">Order ${escapeHTML(o.id)} · ${escapeHTML(o.product)}</div><div class="small muted">${stages[o.stage]}</div></button>`).join(""):'<p class="empty">No matching orders.</p>';
+document.querySelectorAll("[data-order]").forEach(b=>b.onclick=()=>{selected=b.dataset.order;draw()});
+drawDetail();
+}
+
+function monthsAgo(iso){const a=new Date(iso+"T12:00:00"),b=new Date();return Math.max(0,(b.getFullYear()-a.getFullYear())*12+b.getMonth()-a.getMonth()-(b.getDate()<a.getDate()?1:0))}
+function drawReorders(){
+$("reorderCards").innerHTML=pastProducts.map(p=>{
+const requested=reorderRequests.includes(p.id);
+return `<article class="reorder-card"><div class="product-icon">📦</div><div><strong>${escapeHTML(p.name)}</strong><div class="muted small">${escapeHTML(p.detail)}</div></div><div class="last">Last ordered <strong>${monthsAgo(p.last)} months ago</strong></div><div class="small muted">Estimated lead time: <strong>${p.lead}</strong></div><button class="btn ${requested?"requested":"primary"}" data-reorder="${p.id}" ${requested?"disabled":""}>${requested?"Request sent ✓":"Request a reorder quote"}</button></article>`
+}).join("");
+document.querySelectorAll("[data-reorder]").forEach(btn=>btn.onclick=()=>{
+if(!reorderRequests.includes(btn.dataset.reorder)){reorderRequests.push(btn.dataset.reorder);localStorage.setItem("packpilot-reorders-v2",JSON.stringify(reorderRequests))}
+drawReorders();$("reorderSaved").textContent="Quote request saved in this demo. No email has been sent.";
+});
+}
+
+function drawDetail(){
+const o=visible().find(x=>x.id===selected);if(!o){$("detail").innerHTML='<div class="empty">Choose an order.</div>';return}
+const symbols=icons.map((x,i)=>i===3?(o.freight==="Air"?"✈️":o.freight==="Rail"?"🚆":"🚢"):x);
+$("detail").innerHTML=`
+<div class="row"><div><div class="small muted">${escapeHTML(o.id)} · ${escapeHTML(o.customer)}</div><h2>${escapeHTML(o.product)}</h2></div><span class="tag">${stages[o.stage]}</span></div>
+<div class="timeline">${stages.map((s,i)=>`<div class="step ${i<o.stage?"done":i===o.stage?"now":""}"><span class="symbol">${symbols[i]}</span>${s}</div>`).join("")}</div>
+<div class="facts"><div class="fact"><span class="muted small">Expected delivery</span><strong>${escapeHTML(o.eta)}</strong></div><div class="fact"><span class="muted small">Shipping method</span><strong>${escapeHTML(o.freight)}</strong></div><div class="fact"><span class="muted small">Order value</span><strong>${money(o.total)}</strong></div><div class="fact"><span class="muted small">Paid / Balance</span><strong>${money(o.paid)} / ${money(Math.max(0,o.total-o.paid))}</strong></div></div>
+${view==="sales"&&warning(o)?`<div class="notice">⚠ ${warning(o)} — calculated from the order dates and payment values.</div>`:""}
+${o.update?`<p><strong>Customer update:</strong> ${escapeHTML(o.update)}</p>`:""}
+${view==="sales"?`
+<div class="editor"><h3>Update this order</h3><p class="hint">Changes appear in the customer view and remain after refresh.</p><form id="editForm" class="stack">
+<label class="field">Order stage<select name="stage">${stages.map((s,i)=>`<option value="${i}" ${o.stage===i?"selected":""}>${s}</option>`).join("")}</select></label>
+<label class="field">Expected delivery<input name="eta" type="date" required value="${escapeHTML(o.eta)}"></label>
+<label class="field">Next stage deadline<input name="deadline" type="date" required value="${escapeHTML(o.deadline)}"></label>
+<label class="field">Amount paid (€)<input name="paid" type="number" min="0" max="${o.total}" step="0.01" required value="${o.paid}"></label>
+<label class="field">Customer update<textarea name="update" placeholder="Visible to customer">${escapeHTML(o.update)}</textarea></label>
+<label class="field">Internal note (sales only)<textarea name="internalNote" placeholder="Not shown to customer">${escapeHTML(o.internalNote)}</textarea></label>
+<button class="btn primary" type="submit">Save changes</button></form><p id="saved" class="toast" role="status"></p></div>`:
+`<div class="editor"><h3>Delivery details</h3><form id="addressForm" class="stack"><label class="field">Delivery address<textarea name="address" required>${escapeHTML(o.address)}</textarea></label><button class="btn primary" type="submit">Save delivery address</button></form>
+<div style="margin-top:20px"><h3>Need more packaging?</h3><p class="muted small">Request a repeat quotation for this product.</p><button id="quoteBtn" class="btn" ${o.quoteRequested?"disabled":""}>${o.quoteRequested?"Quote requested ✓":"Request repeat quote"}</button></div><p id="saved" class="toast" role="status"></p></div>`}`;
+if(view==="sales"){$("editForm").onsubmit=e=>{e.preventDefault();let f=new FormData(e.target);o.stage=+f.get("stage");o.eta=f.get("eta");o.deadline=f.get("deadline");o.paid=+f.get("paid");o.update=f.get("update").trim();o.internalNote=f.get("internalNote").trim();save();draw();$("saved").textContent="Changes saved to this browser."}}
+else{$("addressForm").onsubmit=e=>{e.preventDefault();o.address=new FormData(e.target).get("address").trim();save();$("saved").textContent="Delivery address saved.";};$("quoteBtn").onclick=()=>{o.quoteRequested=true;save();draw();$("saved").textContent="Repeat quote request saved in this demo."}}
+}
+$("salesTab").onclick=()=>{view="sales";draw()};$("customerTab").onclick=()=>{view="customer";selected=undefined;draw()};$("search").oninput=draw;
+$("reset").onclick=()=>{if(confirm("Reset all fictional sample orders to their starting values?")){data=structuredClone(seed);reorderRequests=[];localStorage.removeItem("packpilot-reorders-v2");save();selected=data[0].id;draw()}};
+draw();
+</script></body></html>
