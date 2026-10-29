@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   PackPilot | Sales workspace demo
+  </title>
+  <meta content="#071425" name="theme-color"/>
+  <style>
+   :root {
+  color-scheme:dark;
+  --bg:#071425;
+  --panel:#0d2137;
+  --panel2:#102b45;
+  --line:#24405a;
+  --txt:#eef7ff;
+  --muted:#9cb4c9;
+  --teal:#20d1ce;
+  --red:#ff6f80;
+  --amber:#ffcb72;
+  --blue:#72baff;
+  --green:#58dbac;
+  --shadow:0 14px 42px #0003
+}
+* {
+  box-sizing:border-box
+}
+html {
+  scroll-behavior:smooth
+}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font:14px/1.55 system-ui,-apple-system,'Segoe UI',sans-serif
+}
+button,input,select,textarea {
+  font:inherit
+}
+button,a {
+  transition:background .18s,border-color .18s,transform .18s
+}
+button {
+  cursor:pointer
+}
+button:disabled {
+  opacity:.46;
+  cursor:not-allowed
+}
+a {
+  color:inherit;
+  text-decoration:none
+}
+a:hover,button:hover:not(:disabled) {
+  filter:brightness(1.12)
+}
+:focus-visible {
+  outline:3px solid var(--teal);
+  outline-offset:3px
+}
+.muted {
+  color:var(--muted)
+}
+.small {
+  font-size:12px
+}
+.eyebrow {
+  color:var(--teal);
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase
+}
+.brand {
+  font-size:21px;
+  font-weight:850;
+  letter-spacing:-.8px;
+  white-space:nowrap
+}
+.brand b {
+  color:var(--teal)
+}
+.mark {
+  display:inline-grid;
+  place-items:center;
+  background:var(--teal);
+  color:#082234;
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  margin-right:9px
+}
+.card {
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:20px;
+  box-shadow:var(--shadow)
+}
+.btn {
+  border:1px solid var(--line);
+  background:#15334d;
+  color:var(--txt);
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:700;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  white-space:nowrap
+}
+.btn.primary {
+  background:var(--teal);
+  border-color:var(--teal);
+  color:#05232e
+}
+.btn.ghost {
+  background:transparent
+}
+.btn.danger {
+  color:var(--red)
+}
+.btn.tiny {
+  padding:6px 9px;
+  font-size:12px
+}
+.pill {
+  display:inline-block;
+  border:1px solid;
+  border-radius:999px;
+  padding:3px 9px;
+  font-size:11px;
+  font-weight:800;
+  white-space:nowrap
+}
+.pill.red {
+  color:var(--red);
+  background:#ff6f8019;
+  border-color:#ff6f8055
+}
+.pill.amber {
+  color:var(--amber);
+  background:#ffcb7216;
+  border-color:#ffcb7255
+}
+.pill.blue {
+  color:var(--blue);
+  background:#72baff14;
+  border-color:#72baff55
+}
+.pill.green {
+  color:var(--green);
+  background:#58dbac16;
+  border-color:#58dbac55
+}
+.pill.neutral {
+  color:#bfd1e0;
+  border-color:#637d9255
+}
+.row {
+  display:flex;
+  align-items:center;
+  gap:10px
+}
+.between {
+  justify-content:space-between
+}
+.wrap {
+  flex-wrap:wrap
+}
+.stack {
+  display:grid;
+  gap:14px
+}
+.grid {
+  display:grid;
+  gap:14px
+}
+.g2 {
+  grid-template-columns:repeat(2,minmax(0,1fr))
+}
+.g3 {
+  grid-template-columns:repeat(3,minmax(0,1fr))
+}
+.g4 {
+  grid-template-columns:repeat(4,minmax(0,1fr))
+}
+h1,h2,h3,p {
+  margin-top:0
+}
+h1 {
+  font-size:clamp(30px,3.4vw,46px);
+  letter-spacing:-1.5px;
+  line-height:1.13
+}
+h2 {
+  font-size:clamp(23px,2.5vw,32px);
+  letter-spacing:-.8px;
+  line-height:1.2
+}
+h3 {
+  font-size:16px
+}
+p {
+  color:var(--muted)
+}
+.field {
+  background:#0a1b2d;
+  border:1px solid var(--line);
+  border-radius:10px;
+  color:var(--txt);
+  padding:10px 12px;
+  min-width:0;
+  width:100%
+}
+textarea.field {
+  min-height:90px;
+  resize:vertical
+}
+label {
+  font-size:12px;
+  font-weight:700;
+  color:#c4d5e3
+}
+hr {
+  border:0;
+  border-top:1px solid var(--line);
+  margin:15px 0
+}
+.tablewrap {
+  overflow:auto;
+  border:1px solid var(--line);
+  border-radius:12px
+}
+table {
+  border-collapse:collapse;
+  width:100%;
+  min-width:750px
+}
+th,td {
+  text-align:left;
+  padding:13px 12px;
+  border-bottom:1px solid #24405a88;
+  vertical-align:middle
+}
+th {
+  font-size:11px;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--muted);
+  background:#10283e;
+  cursor:pointer
+}
+tr:last-child td {
+  border-bottom:0
+}
+tbody tr:hover {
+  background:#18334a66
+}
+.metric {
+  padding:18px
+}
+.metric .num {
+  font-size:27px;
+  font-weight:850;
+  letter-spacing:-1px;
+  margin-top:4px
+}
+.metric .caption {
+  color:var(--muted);
+  font-size:12px
+}
+.metric .ico {
+  color:var(--teal);
+  font-size:20px
+}
+.alert {
+  border:1px solid var(--line);
+  border-left:4px solid var(--amber);
+  border-radius:12px;
+  padding:13px;
+  background:#10263b
+}
+.alert.red {
+  border-left-color:var(--red)
+}
+.alert.blue {
+  border-left-color:var(--blue)
+}
+.alert.green {
+  border-left-color:var(--green)
+}
+.alert .meta {
+  color:var(--muted);
+  font-size:12px
+}
+.hidden {
+  display:none!important
+}
+.empty {
+  text-align:center;
+  padding:28px;
+  color:var(--muted)
+}
+.toast {
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  z-index:1000;
+  background:#123f43;
+  border:1px solid var(--teal);
+  padding:13px 18px;
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  max-width:350px
+}
+.modalbg {
+  position:fixed;
+  inset:0;
+  background:#000a;
+  z-index:100;
+  display:grid;
+  place-items:center;
+  padding:15px
+}
+.modal {
+  background:#10243a;
+  border:1px solid #3c5a72;
+  border-radius:18px;
+  padding:22px;
+  width:min(600px,100%);
+  max-height:92vh;
+  overflow:auto
+}
+.modal h2 {
+  font-size:23px
+}
+.divider {
+  height:1px;
+  background:var(--line);
+  margin:16px 0
+}
+.skeleton {
+  height:13px;
+  border-radius:7px;
+  background:linear-gradient(90deg,#19344a,#28475d,#19344a);
+  background-size:200% 100%;
+  animation:shimmer 1.3s linear infinite
+}
+@keyframes shimmer {
+  to {
+    background-position:-200% 0
+  }
+  
+}
+@media(max-width:900px) {
+  .g4 {
+    grid-template-columns:repeat(2,1fr)
+  }
+  .g3 {
+    grid-template-columns:repeat(2,1fr)
+  }
+  
+}
+@media(max-width:600px) {
+  .g2,.g3,.g4 {
+    grid-template-columns:1fr
+  }
+  .card {
+    padding:15px
+  }
+  h1 {
+    font-size:31px
+  }
+  
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*:before,*:after {
+    animation:none!important;
+    scroll-behavior:auto!important;
+    transition:none!important
+  }
+  
+}
+  </style>
+  <style>
+   .app {
+  display:grid;
+  grid-template-columns:235px minmax(0,1fr);
+  min-height:100vh
+}
+.side {
+  background:#09192a;
+  border-right:1px solid var(--line);
+  padding:20px 14px;
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:auto
+}
+.navbtn {
+  width:100%;
+  text-align:left;
+  border:0;
+  background:transparent;
+  color:#b6ccdf;
+  padding:12px 13px;
+  border-radius:10px;
+  margin:3px 0;
+  font-weight:650
+}
+.navbtn.active,.navbtn:hover {
+  background:#12384b;
+  color:var(--teal)
+}
+.main {
+  min-width:0;
+  padding:22px clamp(14px,3vw,36px) 50px
+}
+.top {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:25px
+}
+.toptools {
+  display:flex;
+  gap:8px;
+  align-items:center
+}
+.mobilemenu {
+  display:none
+}
+.section {
+  display:none
+}
+.section.active {
+  display:block
+}
+.sectionhead {
+  margin-bottom:22px
+}
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px
+}
+.toolbar {
+  display:flex;
+  gap:9px;
+  align-items:center;
+  flex-wrap:wrap;
+  margin-bottom:13px
+}
+.toolbar .field {
+  width:auto;
+  min-width:140px;
+  flex:1
+}
+.tabs {
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap
+}
+.tab {
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--muted);
+  border-radius:8px;
+  padding:8px 11px
+}
+.tab.active {
+  background:var(--teal);
+  color:#062633;
+  border-color:var(--teal)
+}
+.progress {
+  display:flex;
+  gap:4px;
+  margin:12px 0
+}
+.progress span {
+  height:7px;
+  flex:1;
+  background:#244157;
+  border-radius:4px
+}
+.progress span.done {
+  background:var(--green)
+}
+.progress span.current {
+  background:var(--teal)
+}
+.timeline {
+  position:relative;
+  display:grid;
+  gap:9px
+}
+.step {
+  display:flex;
+  gap:12px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px;
+  background:#10263a
+}
+.stepicon {
+  flex:0 0 34px;
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:#1d4356;
+  color:var(--teal)
+}
+.step.done .stepicon {
+  background:#154e48;
+  color:var(--green)
+}
+.step.waiting .stepicon {
+  background:#573a35;
+  color:var(--amber)
+}
+.step.upcoming {
+  opacity:.65
+}
+.miniimage {
+  width:48px;
+  height:48px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#28536a,#17324a);
+  border-radius:10px;
+  font-size:24px
+}
+.detailgrid {
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:15px
+}
+.drawer {
+  position:fixed;
+  inset:0 0 0 auto;
+  width:min(650px,100%);
+  z-index:80;
+  background:#0b1c2e;
+  border-left:1px solid var(--line);
+  padding:22px;
+  overflow:auto;
+  box-shadow:-15px 0 50px #0008
+}
+.bell {
+  position:relative
+}
+.count {
+  position:absolute;
+  right:-5px;
+  top:-7px;
+  border-radius:50%;
+  background:var(--red);
+  color:#fff;
+  min-width:19px;
+  text-align:center;
+  font-size:11px;
+  padding:1px 4px
+}
+.mobileonly {
+  display:none
+}
+@media(max-width:1000px) {
+  .detailgrid {
+    grid-template-columns:1fr
+  }
+  
+}
+@media(max-width:760px) {
+  .app {
+    display:block
+  }
+  .side {
+    position:fixed;
+    z-index:90;
+    left:0;
+    top:0;
+    width:240px;
+    transform:translateX(-105%);
+    transition:transform .2s;
+    box-shadow:var(--shadow)
+  }
+  .side.open {
+    transform:none
+  }
+  .mobilemenu,.mobileonly {
+    display:inline-flex
+  }
+  .main {
+    padding-top:14px
+  }
+  .toptools .smallhide {
+    display:none
+  }
+  
+}
+@media(max-width:600px) {
+  .top {
+    align-items:flex-start
+  }
+  .toptools {
+    flex-wrap:wrap;
+    justify-content:flex-end
+  }
+  .toolbar .field {
+    width:100%;
+    flex-basis:100%
+  }
+  
+}
+  </style>
+  <style id="callback-styles">
+   .callback-hero {
+  border:1px solid #267f82;
+  background:linear-gradient(115deg,#103d48,#11273e);
+  border-radius:17px;
+  padding:19px;
+  margin:0 0 16px
+}
+.callback-hero h3 {
+  margin:5px 0 7px
+}
+.callback-hero .row {
+  gap:12px
+}
+.callback-status {
+  display:inline-flex;
+  gap:6px;
+  align-items:center;
+  padding:6px 10px;
+  border-radius:30px;
+  background:#163e47;
+  color:#86f0dd;
+  font-size:12px;
+  font-weight:700
+}
+.callback-status.scheduled {
+  background:#233956;
+  color:#9cc7ff
+}
+.callback-status.completed {
+  background:#153d35;
+  color:#8df1c0
+}
+.cb-list {
+  display:grid;
+  gap:12px
+}
+.cb-item {
+  padding:17px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:var(--panel,#11263a)
+}
+.cb-item .actions {
+  margin-top:12px
+}
+.cb-form {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px
+}
+.cb-form label {
+  font-size:12px;
+  color:var(--muted);
+  display:grid;
+  gap:6px
+}
+.cb-form .wide {
+  grid-column:1/-1
+}
+.cb-form .field {
+  width:100%;
+  min-width:0
+}
+.callback-sidebar {
+  margin:15px 5px;
+  padding:14px;
+  border:1px solid #236e74;
+  border-radius:13px;
+  background:#113742
+}
+.callback-sidebar p {
+  font-size:12px;
+  margin:7px 0 12px
+}
+.callback-sidebar button {
+  width:100%
+}
+@media(max-width:650px) {
+  .cb-form {
+    grid-template-columns:1fr
+  }
+  .callback-hero .row {
+    align-items:flex-start
+  }
+  .cb-item .actions {
+    flex-wrap:wrap
+  }
+  
+}
+  </style>
+  <style id="journey-v2">
+   .journey-track {
+  display:grid;
+  grid-template-columns:repeat(8,minmax(0,1fr));
+  gap:9px;
+  position:relative;
+  margin:18px 0 22px
+}
+.journey-track:before {
+  content:"";
+  position:absolute;
+  top:25px;
+  left:5%;
+  right:5%;
+  height:2px;
+  background:linear-gradient(90deg,#22c9bb,#31536a);
+  z-index:0
+}
+.journey-node {
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:8px;
+  min-width:0;
+  padding:10px 5px;
+  border-radius:13px;
+  background:#10293e;
+  border:1px solid #28445a;
+  font-size:11px
+}
+.journey-node strong {
+  font-size:11px;
+  min-height:27px
+}
+.journey-node .small {
+  font-size:10px;
+  overflow-wrap:anywhere
+}
+.journey-icon {
+  width:49px;
+  height:49px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:#15384b;
+  color:#4bd5ce;
+  border:1px solid #37657a
+}
+.journey-node.done .journey-icon {
+  color:#67e5b5;
+  border-color:#238e73;
+  background:#13463f
+}
+.journey-node.waiting .journey-icon {
+  color:#ffb6a9;
+  border-color:#a85252;
+  background:#4b2935
+}
+.journey-node.upcoming {
+  opacity:.74
+}
+.journey-node.done:last-child .journey-icon {
+  background:#176b50;
+  color:white
+}
+.action-needed {
+  font-weight:700;
+  color:#ffb6a9
+}
+.previous-item {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:13px 0;
+  border-bottom:1px solid var(--line)
+}
+.previous-item:last-child {
+  border-bottom:0
+}
+.previous-item .btn {
+  white-space:normal
+}
+@media(max-width:1150px) {
+  .journey-track {
+    grid-template-columns:repeat(4,minmax(0,1fr))
+  }
+  .journey-track:before {
+    display:none
+  }
+  
+}
+@media(max-width:600px) {
+  .journey-track {
+    grid-template-columns:1fr;
+    gap:8px
+  }
+  .journey-node {
+    display:grid;
+    grid-template-columns:48px minmax(0,1fr) auto;
+    text-align:left;
+    align-items:center;
+    padding:12px;
+    gap:4px 12px
+  }
+  .journey-node .journey-icon {
+    grid-row:span 4
+  }
+  .journey-node strong {
+    min-height:0
+  }
+  .journey-node .small,.journey-node .action-needed {
+    grid-column:2/-1
+  }
+  .previous-item {
+    align-items:flex-start;
+    flex-direction:column
+  }
+  
+}
+@media(prefers-reduced-motion:no-preference) {
+  .journey-node,.journey-icon {
+    transition:background .2s,border-color .2s,transform .2s
+  }
+  .journey-node:hover {
+    transform:translateY(-2px)
+  }
+  
+}
+  </style>
+  <style>
+   .dashboard-focus>.card {
+  order:-1
+}
+
+/* PackPilot focused experience: comfortable reading, mobile cards, consistent controls */
+html,body {
+  max-width:100%;
+  overflow-x:clip
+}
+.app,.main,.section,.card,.detailgrid,.stack {
+  min-width:0;
+  max-width:100%
+}
+
+.btn,.navbtn {
+  min-height:40px
+}
+.btn:focus-visible,.navbtn:focus-visible {
+  outline:2px solid var(--teal);
+  outline-offset:3px
+}
+
+.card {
+  box-shadow:0 10px 30px #0002
+}
+.metric .num {
+  font-variant-numeric:tabular-nums
+}
+
+.sectionhead {
+  max-width:780px
+}
+.sectionhead .muted {
+  max-width:650px
+}
+
+@media(max-width:680px) {
+  
+ .tablewrap {
+    border:0;
+    overflow:visible!important;
+    background:transparent
+  }
+  
+ .tablewrap table,.tablewrap tbody,.tablewrap tr,.tablewrap td {
+    display:block;
+    width:100%;
+    min-width:0!important
+  }
+  
+ .tablewrap thead {
+    display:none
+  }
+  
+ .tablewrap tbody {
+    display:grid;
+    gap:12px
+  }
+  
+ .tablewrap tr {
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:#10263b;
+    padding:12px;
+    overflow:hidden
+  }
+  
+ .tablewrap td {
+    border:0;
+    padding:5px 0;
+    overflow-wrap:anywhere
+  }
+  
+ .tablewrap td:nth-child(2) {
+    font-size:16px
+  }
+  
+ .tablewrap td:nth-child(4):before {
+    content:'Order value · ';
+    color:var(--muted);
+    font-size:12px
+  }
+  
+ .tablewrap td:nth-child(5):before {
+    content:'ETA · ';
+    color:var(--muted);
+    font-size:12px
+  }
+  
+ .tablewrap td:last-child {
+    padding-top:12px;
+    border-top:1px solid var(--line);
+    margin-top:8px
+  }
+  
+ .tablewrap td:last-child .actions {
+    display:flex;
+    flex-wrap:wrap
+  }
+  
+ .top {
+    flex-wrap:wrap
+  }
+  .toptools {
+    width:100%;
+    justify-content:flex-start
+  }
+  
+ .main {
+    padding-left:14px;
+    padding-right:14px
+  }
+  .metric {
+    padding:14px
+  }
+  
+ .detailgrid {
+    display:grid;
+    grid-template-columns:1fr
+  }
+  
+
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .skeleton {
+    animation:none
+  }
+  
+}
+  </style>
+  <style id="packpilot-interaction-polish">
+   /* Small, purposeful movement: tiles lift and buttons respond to touch. */
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+  
+.card,.alert,.cb-item,.journey-node,.metric,.previous-item,.journeystep {
+    
+ transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s,box-shadow .22s,background .22s;
+    
+
+  }
+  
+.card:hover,.cb-item:hover,.journey-node:hover,.metric:hover {
+    
+ transform:translateY(-4px);
+    
+ border-color:#3e7589;
+    
+ box-shadow:0 18px 42px #0005;
+    
+
+  }
+  
+.alert:hover,.previous-item:hover {
+    transform:translateY(-2px);
+    border-color:#3e7589
+  }
+  
+.btn:hover:not(:disabled),.navbtn:hover:not(:disabled) {
+    transform:translateY(-2px)
+  }
+  
+
+}
+
+.btn:active:not(:disabled),.navbtn:active:not(:disabled) {
+  transform:scale(.965)
+}
+
+.btn {
+  position:relative;
+  overflow:hidden
+}
+
+.pp-clicked {
+  animation:ppButtonTap .3s ease
+}
+
+@keyframes ppButtonTap {
+  50% {
+    filter:brightness(1.28);
+    transform:scale(.965)
+  }
+  
+}
+
+.toast.pp-feedback {
+  
+ display:flex;
+  align-items:center;
+  gap:12px;
+  
+ background:#10372f;
+  border:1px solid #40d9a6;
+  color:#effff9;
+  
+ box-shadow:0 18px 52px #0009;
+  min-width:min(310px,calc(100vw - 32px));
+  
+ animation:ppToastIn .28s cubic-bezier(.2,.8,.2,1) both;
+  
+
+}
+
+.pp-feedback-icon {
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  flex:none;
+  display:grid;
+  place-items:center;
+  
+ background:#1c765c;
+  color:white;
+  font-weight:900;
+  font-size:20px
+}
+
+.pp-feedback-copy {
+  display:grid;
+  gap:2px;
+  line-height:1.35
+}
+
+.pp-feedback-copy strong {
+  font-size:13px
+}
+
+.pp-feedback-copy span {
+  font-size:12px;
+  color:#c8f5e6
+}
+
+.toast.pp-feedback.pp-warning {
+  background:#3c2c1b;
+  border-color:#ffb020
+}
+
+.toast.pp-feedback.pp-warning .pp-feedback-icon {
+  background:#9d6824
+}
+
+@keyframes ppToastIn {
+  from {
+    opacity:0;
+    transform:translateY(18px) scale(.96)
+  }
+  to {
+    opacity:1;
+    transform:translateY(0) scale(1)
+  }
+  
+}
+
+@media(max-width:600px) {
+  .toast.pp-feedback {
+    left:16px;
+    right:16px;
+    bottom:16px;
+    max-width:none
+  }
+  
+}
+
+@media(prefers-reduced-motion:reduce) {
+  .toast.pp-feedback,.pp-clicked {
+    animation:none!important
+  }
+  
+}
+  </style>
+ </head>
+ <body>
+  <div class="app">
+   <aside class="side" id="side">
+    <div class="row between" style="margin-bottom:28px">
+     <a class="brand" href="index.html">
+      <span class="mark">
+       ⬡
+      </span>
+      Pack
+      <b>
+       Pilot
+      </b>
+     </a>
+     <button aria-label="Close menu" class="btn tiny mobileonly" onclick="toggleSide(false)">
+      ✕
+     </button>
+    </div>
+    <div class="eyebrow" style="padding:0 12px">
+     Workspace
+    </div>
+    <nav aria-label="Main navigation" id="nav">
+    </nav>
+    <hr/>
+    <p class="small muted" style="padding:0 12px">
+     Illustrative demo · Sample data only
+     <br/>
+     Saved locally in this browser
+    </p>
+    <a class="btn ghost" href="index.html" style="width:100%">
+     ← Back to website
+    </a>
+   </aside>
+   <main class="main">
+    <header class="top">
+     <div class="row">
+      <button aria-label="Open menu" class="btn mobilemenu" onclick="toggleSide(true)">
+       ☰
+      </button>
+      <div>
+       <div class="brand">
+        Pack
+        <b>
+         Pilot
+        </b>
+        <span class="small muted">
+         / Demo
+        </span>
+       </div>
+       <div class="small muted">
+        Packaging sales, without the chasing.
+       </div>
+      </div>
+     </div>
+     <div class="toptools">
+      <select aria-label="Choose demo role" class="field" id="role" onchange="setRole(this.value)" style="max-width:150px">
+       <option value="rep">
+        Sales rep
+       </option>
+       <option value="manager">
+        Manager
+       </option>
+       <option value="customer">
+        Customer preview
+       </option>
+      </select>
+      <button aria-label="Show alerts" class="btn bell" onclick="go('attention')">
+       ♧
+       <span class="count" id="bellcount">
+        0
+       </span>
+      </button>
+      <button class="btn smallhide" onclick="resetDemo()">
+       Reset demo
+      </button>
+     </div>
+    </header>
+    <div id="views">
+    </div>
+   </main>
+  </div>
+  <div id="overlay">
+  </div>
+  <div aria-live="polite" class="toast hidden" id="toast" role="status">
+  </div>
+  <script>
+   'use strict';
+const STAGES=["Quote", "Paperwork", "Payment", "In production", "Shipping", "Port", "Warehouse", "Ready for delivery"];
+const ICONS=["<svg viewBox=\"0 0 24 24\" width=\"27\" height=\"27\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"5\" y=\"3\" width=\"14\" height=\"18\" rx=\"2\"/><path d=\"M8 8h7M8 12h4m1 4 2 2 4-5\"/></svg>", "<svg viewBox=\"0 0 24 24\" width=\"27\" height=\"27\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"4\" y=\"3\" width=\"13\" height=\"18\" rx=\"2\"/><path d=\"M7 8h7M7 12h5m2 6 7-7 2 2-7 7-4 1z\"/></svg>", "<svg viewBox=\"0 0 24 24\" width=\"27\" height=\"27\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M16 7a6 6 0 1 0 0 10M5 11h9m-9 3h9\"/></svg>", "<svg viewBox=\"0 0 24 24\" width=\"27\" height=\"27\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 21V10l6 4v-4l6 4V6h6v15zM18 6V3h3v3M7 18h2m3 0h2m3 0h2\"/></svg>", "<svg viewBox=\"0 0 24 24\" width=\"27\" height=\"27\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 15h18l-3 5H6zM7 15V8h10v7M10 8V5h4v3M2 22q2-2 4 0t4 0t4 0t4 0t4 0\"/><path d=\"M3 5h5M4 3l2 2-2 2M18 4l3 2-3 2M19 6v5\"/></svg>", "<svg viewBox=\"0 0 24 24\" width=\"27\" height=\"27\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 21h18M5 21v-8h7v8M13 21V3h8M13 7h8l-3 4M16 11v4m-2 0h4M3 13h9\"/></svg>", "<svg viewBox=\"0 0 24 24\" width=\"27\" height=\"27\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 10l9-7 9 7v11H3zM8 21v-8h8v8M3 10h18M11 16h2\"/></svg>", "<svg viewBox=\"0 0 24 24\" width=\"27\" height=\"27\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.65\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2 7h12v11H2zM14 11h4l4 4v3h-8z\"/><circle cx=\"7\" cy=\"19\" r=\"2\"/><circle cx=\"18\" cy=\"19\" r=\"2\"/></svg>"];
+const DAY=86400000;const iso=d=>new Date(d).toISOString().slice(0,10);const shift=n=>iso(Date.now()+n*DAY);const money=n=>new Intl.NumberFormat('en-IE',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(n);const fmt=s=>s?new Date(s+'T12:00:00').toLocaleDateString('en-IE',{day:'2-digit',month:'2-digit',year:'numeric'}):'—';const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const defaults=[
+{id:'B-1047',customer:'GreenLeaf Foods',contact:'Aoife',email:'aoife@example.test',product:'Printed folding cartons',qty:5000,value:8400,stage:1,due:-4,stageDays:9,artwork:false,po:false,contract:true,deposit:2520,depositPaid:0,balancePaid:0,paymentDue:-3,mode:'Sea',origin:'Shenzhen',port:'Dublin Port',warehouse:'Dublin',carrier:'OceanBridge (sample)',tracking:'SAMPLE-CN-1047',customs:false,delay:0,rep:'Sarah',notes:'Customer awaiting artwork sign-off.'},
+{id:'B-1046',customer:'PureBeauty Co.',contact:'Niamh',email:'niamh@example.test',product:'Luxury mailer boxes',qty:2000,value:4600,stage:3,due:17,stageDays:4,artwork:true,po:true,contract:true,deposit:1380,depositPaid:1380,balancePaid:0,paymentDue:12,mode:'Rail',origin:'Guangzhou',port:'Rotterdam',warehouse:'Dublin',carrier:'EuroRail (sample)',tracking:'SAMPLE-R-1046',customs:false,delay:0,rep:'Sarah',notes:''},
+{id:'B-1045',customer:'RoastHouse',contact:'Liam',email:'liam@example.test',product:'Coffee cup sleeves',qty:10000,value:3200,stage:4,due:5,stageDays:3,artwork:true,po:true,contract:true,deposit:960,depositPaid:960,balancePaid:2240,paymentDue:4,mode:'Sea',origin:'Shanghai',port:'Dublin Port',warehouse:'Limerick',carrier:'Demo Shipping',tracking:'SAMPLE-SEA-1045',customs:false,delay:2,rep:'Michael',notes:'Vessel schedule changed.'},
+{id:'B-1044',customer:'Everly Skincare',contact:'Ella',email:'ella@example.test',product:'Rigid product boxes',qty:3000,value:6900,stage:5,due:8,stageDays:2,artwork:true,po:true,contract:true,deposit:2070,depositPaid:2070,balancePaid:0,paymentDue:6,mode:'Air',origin:'Hong Kong',port:'Dublin Airport',warehouse:'Dublin',carrier:'Air Cargo (sample)',tracking:'SAMPLE-AWB-1044',customs:false,delay:0,rep:'Sarah',notes:''},
+{id:'B-1043',customer:'TrailMix Snacks',contact:'Conor',email:'conor@example.test',product:'Retail display cartons',qty:1500,value:2900,stage:7,due:1,stageDays:1,artwork:true,po:true,contract:true,deposit:870,depositPaid:870,balancePaid:2030,paymentDue:-1,mode:'Road',origin:'Cork',port:'—',warehouse:'Limerick',carrier:'Local delivery',tracking:'SAMPLE-ROAD-1043',customs:false,delay:0,rep:'Michael',notes:''},
+{id:'B-1042',customer:'Nature’s Best',contact:'Orla',email:'orla@example.test',product:'Kraft food pouches',qty:8000,value:5300,stage:2,due:-1,stageDays:7,artwork:true,po:true,contract:true,deposit:1590,depositPaid:0,balancePaid:0,paymentDue:-2,mode:'Sea',origin:'Ningbo',port:'Dublin Port',warehouse:'Dublin',carrier:'Demo Shipping',tracking:'SAMPLE-SEA-1042',customs:false,delay:0,rep:'Sarah',notes:''},
+{id:'B-1041',customer:'Willow Boutique',contact:'Emma',email:'emma@example.test',product:'Twisted-handle paper bags',qty:6000,value:4100,stage:3,due:14,stageDays:11,artwork:true,po:true,contract:true,deposit:1230,depositPaid:1230,balancePaid:0,paymentDue:7,mode:'Sea',origin:'Xiamen',port:'Dublin Port',warehouse:'Limerick',carrier:'Demo Shipping',tracking:'SAMPLE-SEA-1041',customs:false,delay:0,rep:'Michael',notes:'Processing delayed by supplier.'},
+{id:'B-1040',customer:'Urban Home',contact:'Jack',email:'jack@example.test',product:'Ecommerce mailers',qty:4000,value:3900,stage:6,due:-2,stageDays:6,artwork:true,po:true,contract:true,deposit:1170,depositPaid:1170,balancePaid:0,paymentDue:2,mode:'Sea',origin:'Shenzhen',port:'Dublin Port',warehouse:'Dublin',carrier:'Demo Shipping',tracking:'SAMPLE-SEA-1040',customs:true,delay:4,rep:'Sarah',notes:'Customs documentation requested.'},
+{id:'B-1039',customer:'Fable Gifts',contact:'Kate',email:'kate@example.test',product:'Magnetic gift boxes',qty:1200,value:3500,stage:4,due:10,stageDays:1,artwork:true,po:true,contract:true,deposit:1050,depositPaid:1050,balancePaid:0,paymentDue:8,mode:'Air',origin:'Hong Kong',port:'Dublin Airport',warehouse:'Dublin',carrier:'Demo Air',tracking:'SAMPLE-AWB-1039',customs:false,delay:0,rep:'Michael',notes:''},
+{id:'B-1038',customer:'Seabird Apparel',contact:'Ruth',email:'ruth@example.test',product:'Branded tissue paper',qty:20000,value:2500,stage:0,due:24,stageDays:2,artwork:false,po:true,contract:false,deposit:750,depositPaid:0,balancePaid:0,paymentDue:3,mode:'Rail',origin:'Suzhou',port:'Rotterdam',warehouse:'Limerick',carrier:'Demo Rail',tracking:'SAMPLE-R-1038',customs:false,delay:0,rep:'Sarah',notes:''}];
+const cbKey='packpilot_callbacks_v1';let callbacks=[];try{callbacks=JSON.parse(localStorage.getItem(cbKey))||[]}catch{callbacks=[]}const cbSave=()=>{try{localStorage.setItem(cbKey,JSON.stringify(callbacks))}catch{toast('Callback could not be saved in this browser')}};const activeCB=name=>callbacks.find(c=>c.customer===name&&c.status!=='Completed');const cbFor=name=>callbacks.filter(c=>c.customer===name).sort((a,b)=>b.created.localeCompare(a.created));const cbCount=()=>callbacks.filter(c=>c.status!=='Completed').length;const repName=o=>o.rep||'your sales representative';
+const key='packpilot_simple_v4';let orders;try{orders=JSON.parse(localStorage.getItem(key))||defaults.map(x=>({...x,activity:[],nudges:{},messages:[],documents:[]}))}catch{orders=defaults.map(x=>({...x,activity:[],nudges:{},messages:[],documents:[]}))}let role='rep',view='dashboard',selected='B-1047',customer='GreenLeaf Foods',filter='All',search='',sort='id',ascending=false,modalClose=null;const save=()=>{try{localStorage.setItem(key,JSON.stringify(orders))}catch{toast('Browser storage unavailable: changes may not persist.')}};const get=id=>orders.find(o=>o.id===id);const days=s=>Math.floor((Date.now()-new Date(s+'T23:59:59').getTime())/DAY);const dateOffset=n=>shift(n);const outstanding=o=>Math.max(0,o.value-o.depositPaid-o.balancePaid);const status=o=>o.stage===7?'Ready for delivery':risk(o).some(a=>a.level==='red')?'At risk':o.stage>=4?STAGES[o.stage]:'In progress';const statusClass=s=>s==='At risk'?'red':s==='Ready for delivery'?'green':s==='In production'?'blue':'amber';const age=o=>Math.max(0,o.stageDays-7);function risk(o){let a=[];const push=(kind,text,over,level='amber')=>a.push({order:o,kind,text,over:Math.max(0,over),level});if(!o.po&&o.stage<=3)push('po','Purchase order missing',Math.max(0,o.stageDays-2),o.stageDays>4?'red':'amber');if(!o.contract&&o.stage<=3)push('contract','Contract not signed',Math.max(0,o.stageDays-2),o.stageDays>4?'red':'amber');if(!o.artwork&&o.stage<=4)push('artwork','Artwork awaiting approval',Math.max(0,o.stageDays-3),o.stageDays>5?'red':'amber');if(o.depositPaid<o.deposit&&o.stage<=4){let overdue=days(shift(o.paymentDue));push('payment',overdue>0?'Deposit overdue':'Deposit outstanding',overdue,overdue>0?'red':'amber')}if(outstanding(o)>0&&o.stage>=6){let overdue=days(shift(o.paymentDue));push('payment',overdue>0?'Balance payment overdue':'Balance payment outstanding',overdue,overdue>0?'red':'blue')}if(o.stageDays>7&&o.stage<7)push('stage','Order held in '+STAGES[o.stage],age(o),o.stageDays>10?'red':'amber');if(o.delay>0)push('delay','Shipping ETA slipped by '+o.delay+' days',o.delay,o.delay>3?'red':'amber');if(o.customs)push('customs','Customs hold — documents needed',o.stageDays,'red');return a}const alerts=()=>orders.flatMap(risk).sort((a,b)=>({red:0,amber:1,blue:2}[a.level]-{red:0,amber:1,blue:2}[b.level])||b.over-a.over);function toast(s){
+ const el=document.getElementById('toast');
+ const warning=/already|wait|cooldown|not found|unavailable|could not|enter|invalid|please|error|missing/i.test(s);
+ const title=warning?'Action needs attention':/nudge/i.test(s)?'Reminder recorded':/quot/i.test(s)?'Quote request received':/call.?back/i.test(s)?'Callback request recorded':/approv/i.test(s)?'Approval updated':/payment|deposit/i.test(s)?'Payment updated':'Action completed';
+ el.replaceChildren();
+ const symbol=document.createElement('span');symbol.className='pp-feedback-icon';symbol.setAttribute('aria-hidden','true');symbol.textContent=warning?'!':'✓';
+ const copy=document.createElement('span');copy.className='pp-feedback-copy';
+ const strong=document.createElement('strong');strong.textContent=title;
+ const message=document.createElement('span');message.textContent=s;
+ copy.append(strong,message);el.append(symbol,copy);
+ el.classList.remove('hidden','pp-feedback','pp-warning');void el.offsetWidth;
+ el.classList.add('pp-feedback');if(warning)el.classList.add('pp-warning');
+ clearTimeout(window._tt);window._tt=setTimeout(()=>el.classList.add('hidden'),4200)
+}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button,.btn');
+ if(!b||b.disabled)return;
+ b.classList.remove('pp-clicked');void b.offsetWidth;b.classList.add('pp-clicked');
+ setTimeout(()=>b.classList.remove('pp-clicked'),350);
+});function log(o,s){o.activity=o.activity||[];o.activity.unshift({at:new Date().toISOString(),text:s});save()}function toggleSide(open){document.getElementById('side').classList.toggle('open',open)}function nav(){const items=role==='customer'?[['customer','◫','My orders'],['settings','⚙','Notifications'],['help','?','Help']]:[['dashboard','◫','Dashboard'],['orders','▤','Orders'],['attention','⚠','Needs attention'],['callbacks','☎','Call backs'],['customer','◎','Customer portal'],['payments','€','Payments'],['settings','⚙','Notifications'],['help','?','Help']];document.getElementById('nav').innerHTML=items.map(([id,ico,t])=>`<button class="navbtn ${view===id?'active':''}" onclick="go('${id}')">${ico} &nbsp;${t}</button>`).join('')+ (role==='customer'?`<div class="callback-sidebar"><strong>Interested in new branded items? Let's talk.</strong><p>Request a call from your sales rep.</p><button class="btn primary tiny" onclick="requestCallback()">☎ Request a call back</button></div>`:'')}function go(v){view=v;toggleSide(false);render();window.scrollTo(0,0)}function setRole(r){role=r;if(r==='customer')view='customer';else if(view==='customer')view='dashboard';render()}function resetDemo(){if(!confirm('Reset all sample orders and local changes?'))return;orders=defaults.map(x=>({...x,activity:[],nudges:{},messages:[],documents:[]}));callbacks=[];cbSave();save();render();toast('Sample demo reset')}function metric(title,value,sub,ico){return `<div class="card metric"><div class="row between"><span class="muted small">${title}</span><span class="ico">${ico}</span></div><div class="num">${value}</div><div class="caption">${sub}</div></div>`}function head(title,sub){return `<div class="sectionhead"><div class="eyebrow">${role==='manager'?'Manager overview':role==='customer'?'Customer preview · sample data':'Sales workspace'}</div><h1 style="margin:7px 0">${title}</h1><div class="muted">${sub}</div></div>`}function dashboard(){const at=alerts();const total=orders.reduce((a,o)=>a+outstanding(o),0);return head('What needs your attention today?','Spot a blocker, send a reminder, and get back to selling. No email searching required.')+`<div class="grid g3" style="margin-bottom:18px">${metric('Total orders',orders.length,'Sample customer orders','▤')}${metric('In production',orders.filter(o=>o.stage===3).length,'Factory and quality stages','▥')}${metric('Attention needed',at.length,'Live rule-based alerts','⚠')}${metric('Ready for delivery',orders.filter(o=>o.stage===7).length,'Warehouse delivery stage','↗')}${metric('Outstanding payments',money(total),'Deposits and balances','€')}${metric('In transit',orders.filter(o=>o.stage===4||o.stage===5).length,'Shipping and port','✈')}</div><div class="card" style="margin-bottom:16px"><div class="row between wrap"><div><h3 style="margin:0">☎ Call backs</h3><p class="small muted" style="margin:5px 0 0">${cbCount()} active customer requests</p></div><button class="btn primary" onclick="go('callbacks')">View requests →</button></div>${callbacks.filter(c=>c.status!=='Completed').slice(0,2).map(c=>`<p class="small"><span class="pill red">High priority</span> ${esc(c.customer)} · ${esc(c.topic)} · ${esc(c.time)}</p>`).join('')||'<p class="small muted">No call backs pending.</p>'}</div><div class="detailgrid dashboard-focus"><div class="stack"><div class="card"><div class="row between wrap"><h3 style="margin:0">Orders at a glance</h3><button class="btn tiny" onclick="go('orders')">View all →</button></div>${orderTable(orders.slice(0,6),true)}</div><div class="card"><h3>Pipeline</h3><div class="grid g3">${['Awaiting paperwork','In production','In transit'].map((t,i)=>`<div><div class="muted small">${t}</div><div style="font-size:24px;font-weight:800">${[orders.filter(o=>o.stage<=2).length,orders.filter(o=>o.stage===3).length,orders.filter(o=>o.stage===4||o.stage===5).length][i]}</div></div>`).join('')}</div></div></div><div class="card"><div class="row between"><h3 style="margin:0">⚠ Needs attention</h3><span class="pill red">${at.length} alerts</span></div><p class="small">Automatically prioritised from sample paperwork, payment and shipping information.</p><div class="stack">${at.slice(0,5).map(alertCard).join('')||'<div class="empty">All clear — no alerts.</div>'}</div><button class="btn" style="width:100%;margin-top:14px" onclick="go('attention')">View all alerts</button></div></div>`}function alertCard(a){const o=a.order,locked=lockedNudge(o,a.kind);return `<div class="alert ${a.level}"><div class="row between wrap"><strong>${esc(o.customer)}</strong><span class="pill ${a.level}">${a.level==='red'?'Urgent':a.level==='amber'?'Follow up':'Information'}</span></div><div class="small muted">${o.id} · ${esc(a.text)}${a.over?` · ${a.over} day${a.over===1?'':'s'} overdue`:''}</div><div class="row between wrap" style="margin-top:9px"><span class="small muted">${lastNudge(o,a.kind)}</span><button class="btn tiny" ${locked?'disabled':''} onclick="nudge('${o.id}','${a.kind}')">${locked?'Sent · 24h lock':'✉ Nudge'}</button></div></div>`}function lastNudge(o,k){let t=o.nudges?.[k];if(!t)return 'Not nudged';let d=Math.floor((Date.now()-new Date(t))/DAY);return d===0?'Last nudged: today':`Last nudged: ${d} day${d===1?'':'s'} ago`}function lockedNudge(o,k){return o.nudges?.[k]&&Date.now()-new Date(o.nudges[k]).getTime()<DAY}function orderTable(list,compact=false){return `<div class="tablewrap" style="margin-top:13px"><table><thead><tr>${[['id','Order'],['customer','Customer'],['product','Product'],['value','Value'],['due','ETA'],['stage','Status']].map(([k,t])=>`<th onclick="sortBy('${k}')" title="Sort by ${t}">${t} ${sort===k?(ascending?'↑':'↓'):''}</th>`).join('')}<th>Actions</th></tr></thead><tbody>${list.map(o=>`<tr><td><button class="btn tiny ghost" onclick="detail('${o.id}')">${o.id}</button></td><td><strong>${esc(o.customer)}</strong><div class="small muted">${esc(o.rep)}</div></td><td><div class="row"><div class="miniimage" aria-hidden="true">${o.product.includes('cup')?'☕':o.product.includes('bag')?'🛍':'📦'}</div><span>${esc(o.product)}<div class="small muted">${o.qty.toLocaleString('en-IE')} units</div></span></div></td><td>${money(o.value)}</td><td>${fmt(shift(o.due+o.delay))}</td><td>${activeCB(o.customer)?'<span class="pill red">☎ Call back requested</span>':''}<span class="pill ${statusClass(status(o))}">${status(o)}</span></td><td><div class="actions"><button class="btn tiny" onclick="detail('${o.id}')">View</button><button class="btn tiny" ${lockedNudge(o,'general')?'disabled':''} onclick="nudge('${o.id}','general')">Nudge</button></div></td></tr>`).join('')||'<tr><td colspan="7" class="empty">No matching orders. Try a different filter.</td></tr>'}</tbody></table></div>`}function sortBy(k){if(sort===k)ascending=!ascending;else{sort=k;ascending=true}render()}function orderView(){let list=orders.filter(o=>(o.id+' '+o.customer+' '+o.product).toLowerCase().includes(search.toLowerCase()));if(filter==='In Progress')list=list.filter(o=>status(o)==='In progress'||status(o)==='In production');if(filter==='At Risk')list=list.filter(o=>status(o)==='At risk');if(filter==='Ready to Ship')list=list.filter(o=>status(o)==='Ready to ship');list.sort((a,b)=>{let av=sort==='due'?a.due+a.delay:a[sort],bv=sort==='due'?b.due+b.delay:b[sort];return (typeof av==='number'?av-bv:String(av).localeCompare(String(bv)))*(ascending?1:-1)});return head('Orders','Search, sort and act on packaging projects in seconds.')+`<div class="card"><div class="toolbar"><input id="ordersearch" class="field" placeholder="Search orders, customers or packaging…" aria-label="Search orders" value="${esc(search)}" oninput="search=this.value;updateOrdersTable()"><div class="tabs" role="group" aria-label="Filter orders">${['All','In Progress','At Risk','Ready to Ship'].map(t=>`<button class="tab ${filter===t?'active':''}" onclick="filter='${t}';render()">${t}</button>`).join('')}</div><button class="btn" onclick="exportCSV()">↓ CSV</button><button class="btn" onclick="window.print()">Print / PDF</button></div><div id="ordertable">${orderTable(list)}</div></div>`}function updateOrdersTable(){const active=document.activeElement;let pos=active.selectionStart;document.getElementById('ordertable').innerHTML=orderTable(orders.filter(o=>(o.id+' '+o.customer+' '+o.product).toLowerCase().includes(search.toLowerCase())).filter(o=>filter==='All'||(filter==='In Progress'?['In progress','In production'].includes(status(o)):status(o).toLowerCase()===filter.toLowerCase())).sort((a,b)=>String(a[sort]).localeCompare(String(b[sort]))*(ascending?1:-1)));active.setSelectionRange(pos,pos)}function exportCSV(){const rows=[['Order','Customer','Product','Quantity','Value EUR','Stage','ETA','Outstanding EUR'],...orders.map(o=>[o.id,o.customer,o.product,o.qty,o.value,STAGES[o.stage],fmt(shift(o.due+o.delay)),outstanding(o)])];const csv=rows.map(r=>r.map(v=>'"'+String(v).replaceAll('"','""')+'"').join(',')).join('\r\n');download('PackPilot-orders.csv',csv,'text/csv')}function download(name,body,type){const url=URL.createObjectURL(new Blob([body],{type}));let a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}function attention(){return head('Needs attention','Red means blocked or overdue. Amber means follow-up. Blue is informational.')+`<div class="grid g2">${callbacks.filter(c=>c.status!=='Completed').map(c=>`<div class="alert red"><span class="pill red">High priority · Call back</span><h3>${esc(c.customer)}</h3><p class="small">${esc(c.orderId)} · ${esc(c.topic)} · ${esc(c.time)} · ${esc(c.status)}</p><button class="btn primary tiny" onclick="go('callbacks')">Manage request</button></div>`).join('')}${alerts().map(alertCard).join('')||(!cbCount()?'<div class="card empty">Nothing needs attention right now.</div>':'')}</div>`}function paymentView(){return head('Payments','Track deposits, balances and overdue amounts. Demo payments are simulated.')+`<div class="grid g3">${metric('Outstanding',money(orders.reduce((s,o)=>s+outstanding(o),0)),'Across all sample orders','€')}${metric('Overdue orders',orders.filter(o=>outstanding(o)>0&&o.paymentDue<0).length,'Past the sample due date','⚠')}${metric('Fully paid',orders.filter(o=>outstanding(o)===0).length,'No remaining balance','✓')}</div><div class="card" style="margin-top:16px"><div class="tablewrap"><table><thead><tr><th>Order</th><th>Customer</th><th>Deposit</th><th>Balance due</th><th>Due</th><th>Action</th></tr></thead><tbody>${orders.map(o=>`<tr><td>${o.id}</td><td>${esc(o.customer)}${activeCB(o.customer)?' <span class="pill red">☎ Call back requested</span>':''}</td><td>${money(o.depositPaid)} / ${money(o.deposit)}</td><td>${money(outstanding(o))}</td><td>${fmt(shift(o.paymentDue))}</td><td><button class="btn tiny" onclick="detail('${o.id}')">Manage</button></td></tr>`).join('')}</tbody></table></div></div>`}function route(o){let pct=Math.round(o.stage/9*100);return `<div class="card"><div class="row between wrap"><strong>Shipment journey · ${esc(o.mode)}</strong><span class="pill blue">ETA ${fmt(shift(o.due+o.delay))}</span></div><div class="progress" aria-label="Shipment ${pct}% complete">${Array.from({length:10},(_,i)=>`<span class="${i<o.stage?'done':i===o.stage?'current':''}"></span>`).join('')}</div><div class="row between small muted wrap"><span>📦 ${esc(o.origin)}</span><span>⚓ ${esc(o.port)}</span><span>⌂ ${esc(o.warehouse)}</span></div><hr><div class="small muted">${esc(o.carrier)} · Tracking: ${esc(o.tracking)} · ${o.delay?'Revised ETA: +'+o.delay+' days':'On original ETA'}</div></div>`}function timeline(o){const issues=risk(o);return `<div class="journey-track" aria-label="Eight-stage order journey">${STAGES.map((s,i)=>{const blocked=(i===1&&(!o.artwork||!o.po||!o.contract))||(i===2&&o.depositPaid<o.deposit);let state=i<o.stage?'done':i===o.stage?(blocked?'waiting':'current'):'upcoming';const note=i===1?`${o.artwork?'Artwork approved':'Artwork approval required'} · ${o.po?'PO received':'PO required'}`:i===2?`Deposit ${money(o.depositPaid)} of ${money(o.deposit)}`:i===4?`${o.mode} · ${o.carrier} · ETA ${fmt(shift(o.due+o.delay))}`:i===5?o.customs?'Customs documents outstanding':'Port and customs':i===6?`Warehouse: ${o.warehouse}`:i===7?'Ready to arrange final delivery':state==='done'?'Stage complete':'Track progress here';const date=fmt(shift(o.due-(7-i)*3+o.delay));return `<div class="journey-node ${state}"><div class="journey-icon">${ICONS[i]}</div><strong>${s}</strong><span class="pill ${state==='done'?'green':state==='waiting'?'red':state==='current'?'blue':'neutral'}">${state==='done'?'Complete':state==='waiting'?'Waiting on customer':state==='current'?'Current':'Upcoming'}</span><span class="small muted">${esc(note)}</span><span class="small muted">${date}</span>${state==='waiting'?'<span class="action-needed">Action needed from you</span>':''}</div>`}).join('')}</div>`}function customerView(){let choices=role==='customer'?orders.filter(o=>o.customer===customer):orders;let o=get(selected);if(!choices.includes(o))o=choices[0];if(!o)return '<div class="empty">No customer orders.</div>';selected=o.id;return head(role==='customer'?'Your packaging orders':'Preview as customer','A simpler, customer-only view. All records are fictional.')+callbackBanner(o)+`<div class="card" style="margin-bottom:15px"><div class="row between wrap"><div><div class="eyebrow">Sample customer portal</div><h3 style="margin:4px 0">${esc(o.customer)}</h3></div><div class="row wrap">${role!=='customer'?`<select class="field" aria-label="Preview customer" onchange="customer=this.value;selected=orders.find(o=>o.customer===customer).id;render()" style="max-width:220px">${[...new Set(orders.map(o=>o.customer))].map(c=>`<option ${c===o.customer?'selected':''}>${esc(c)}</option>`).join('')}</select>`:''}<select class="field" aria-label="Select customer order" onchange="selected=this.value;render()" style="max-width:160px">${orders.filter(x=>x.customer===o.customer).map(x=>`<option ${x.id===o.id?'selected':''}>${x.id}</option>`).join('')}</select></div></div></div><div class="detailgrid"><div class="stack"><div class="card"><div class="row between wrap"><div><div class="eyebrow">${o.id}</div><h2 style="margin:4px 0">${esc(o.product)}</h2><div class="muted">${o.qty.toLocaleString('en-IE')} units · ${money(o.value)}</div></div><span class="pill ${statusClass(status(o))}">${status(o)}</span></div></div>${route(o)}<div class="card"><div class="row between wrap"><div><h3 style="margin:0 0 5px">Previously ordered</h3><p class="small muted" style="margin:0">Interested in new branded items? Let's talk.</p></div><button class="btn primary" onclick="requestCallback()">☎ Request a call back</button></div><div class="small muted" style="margin-top:12px">${orders.filter(x=>x.customer===o.customer).map(x=>`<div class="previous-item"><div><strong>${esc(x.product)}</strong><div class="small muted">${x.qty.toLocaleString('en-IE')} units · Last ordered ${fmt(shift(x.due-70))} · ${x.id}</div></div><button class="btn tiny" onclick="reorder('${x.id}')">Do you need a repeat?</button></div>`).join('')}</div></div><div class="card"><h3>Order journey</h3>${timeline(o)}</div></div><div class="stack"><div class="card"><h3>Action needed from you</h3>${risk(o).filter(a=>['payment','artwork','po','contract','customs'].includes(a.kind)).map(a=>`<div class="alert ${a.level}" style="margin:9px 0"><strong>${esc(a.text)}</strong><div style="margin-top:9px"><button class="btn primary tiny" onclick="customerAction('${o.id}','${a.kind}')">${a.kind==='payment'?'Pay invoice (demo)':a.kind==='artwork'?'Approve artwork':a.kind==='customs'?'Provide customs docs':'Confirm document'}</button></div></div>`).join('')||'<div class="pill green">No action needed from you</div>'}</div><div class="card"><h3>Documents</h3>${docs(o,true)}</div><div class="card"><h3>Message your sales rep</h3><label for="custmsg">Message</label><textarea id="custmsg" class="field" placeholder="Ask about your order…"></textarea><button class="btn primary" style="margin-top:9px" onclick="message('${o.id}')">Send message (demo)</button><p class="small muted" style="margin:8px 0 0">Messages stay in this browser; no real email is sent.</p></div><div class="card"><h3>Updates</h3><p class="small">${esc(o.notes||'Your order updates will appear here.')}</p><button class="btn" onclick="toast('Notification preferences are in Settings')">Notification preferences</button></div>${o.stage===9?`<div class="card"><h3>How did we do?</h3><button class="btn" onclick="feedback('${o.id}',5)">★★★★★ Great</button><button class="btn" onclick="feedback('${o.id}',3)">★★★ Okay</button></div>`:''}</div></div>`}function docs(o,customerMode=false){const arr=[['Invoice','PDF'],['Packing list','PDF'],[o.mode==='Air'?'Airway bill':'Bill of lading','PDF'],['Customs documents','PDF'],['Material certificate','PDF'],...(o.documents||[]).map(x=>[x,'Uploaded'])];return arr.map(([name,type])=>`<div class="row between" style="border-bottom:1px solid var(--line);padding:9px 0"><span class="small">▤ ${esc(name)} <span class="muted">· ${type}</span></span><button class="btn tiny" onclick="sampleDoc('${o.id}','${esc(name).replaceAll("'",'\&#39;')}')">↓</button></div>`).join('')+`<div class="small muted" style="margin-top:9px">Illustrative sample documents, not actual commercial files.</div>`}function sampleDoc(id,name){const o=get(id);download(id+'-'+name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.txt',`PACKPILOT SAMPLE DOCUMENT
+Order: ${o.id}
+Customer: ${o.customer}
+Document: ${name}
+Not a real invoice or shipping document.
+`,'text/plain');toast('Sample document downloaded')}function message(id){let t=document.getElementById('custmsg').value.trim();if(!t)return toast('Enter a message first');let o=get(id);o.messages.push({at:new Date().toISOString(),text:t});log(o,'Customer message (demo): '+t);render();toast('Demo message saved locally')}function feedback(id,rating){log(get(id),'Customer satisfaction feedback: '+rating+'/5 (demo)');toast('Thank you — feedback saved locally')}function customerAction(id,kind){let o=get(id);if(kind==='payment'){o.depositPaid=o.deposit;log(o,'Customer marked deposit paid (simulation)')}else if(kind==='artwork'){o.artwork=true;log(o,'Artwork approved (simulation)')}else if(kind==='po'){o.po=true;log(o,'Purchase order confirmed (simulation)')}else if(kind==='contract'){o.contract=true;log(o,'Contract confirmed (simulation)')}else if(kind==='customs'){o.customs=false;log(o,'Customs documents confirmed (simulation)')}save();render();toast('Sample order updated')}function detail(id){let o=get(id);if(!o)return;selected=id;document.getElementById('overlay').innerHTML=`<div class="drawer" role="dialog" aria-modal="true" aria-labelledby="detailtitle"><div class="row between"><div class="eyebrow">Sample order ${o.id}</div><button class="btn tiny" onclick="closeOverlay()" aria-label="Close order details">✕ Close</button></div><h2 id="detailtitle" style="margin:10px 0 4px">${esc(o.customer)}</h2>${activeCB(o.customer)?'<span class="pill red">☎ Call back requested</span>':''}<p>${esc(o.product)} · ${o.qty.toLocaleString('en-IE')} units · ${money(o.value)}</p><div class="actions"><button class="btn primary" onclick="nudge('${o.id}','general')">✉ Nudge</button><button class="btn" onclick="stageNext('${o.id}')" ${o.stage>=7?'disabled':''}>✓ Mark stage complete</button><button class="btn" onclick="addDocument('${o.id}')">＋ Upload document</button><button class="btn" onclick="nudge('${o.id}','general')">Message customer</button><button class="btn" onclick="reorder('${o.id}')">↻ Repeat quote</button></div><hr><div class="grid g2"><div class="card"><div class="eyebrow">Contact</div><strong>${esc(o.contact)} · ${esc(o.customer)}</strong><div class="small muted">${esc(o.email)}</div></div><div class="card"><div class="eyebrow">Payments</div><strong>${money(outstanding(o))} outstanding</strong><div class="small muted">Deposit ${money(o.depositPaid)}/${money(o.deposit)} · Due ${fmt(shift(o.paymentDue))}</div><button class="btn tiny" style="margin-top:7px" onclick="markPaid('${o.id}')">Mark as paid (demo)</button></div></div><hr><h3>Progress</h3>${timeline(o)}<hr><h3>Documents</h3>${docs(o)}<hr><h3>Internal notes</h3><textarea id="ordernotes" class="field">${esc(o.notes)}</textarea><button class="btn" style="margin-top:8px" onclick="saveNotes('${o.id}')">Save notes</button><hr><h3>Activity history</h3>${(o.activity||[]).map(a=>`<div class="small" style="padding:7px 0;border-bottom:1px solid var(--line)"><span class="muted">${new Date(a.at).toLocaleString('en-IE')} · </span>${esc(a.text)}</div>`).join('')||'<div class="small muted">No activity yet.</div>'}</div>`;modalClose=()=>closeOverlay();document.querySelector('.drawer button').focus()}function closeOverlay(){document.getElementById('overlay').innerHTML='';modalClose=null}document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modalClose)modalClose()});function stageNext(id){let o=get(id);if(o.stage<7){o.stage++;o.stageDays=0;log(o,'Stage advanced to '+STAGES[o.stage]);detail(id);render();toast('Stage updated')}}function saveNotes(id){let o=get(id);o.notes=document.getElementById('ordernotes').value;log(o,'Internal notes updated');toast('Notes saved')}function markPaid(id){let o=get(id);o.depositPaid=o.deposit;o.balancePaid=o.value-o.deposit;log(o,'Payment marked as paid (demo)');detail(id);render();toast('Sample payment updated')}function addDocument(id){const el=document.createElement('input');el.type='file';el.accept='.pdf,.png,.jpg,.jpeg,.doc,.docx';el.onchange=()=>{let file=el.files?.[0];if(!file)return;let o=get(id);o.documents.push(file.name+' (name only)');log(o,'Document name recorded: '+file.name+' (file not uploaded)');detail(id);toast('File name recorded locally; no file uploaded')};el.click()}function reorder(id){let o=get(id);log(o,'Repeat quotation requested (demo)');toast('Repeat quotation request logged')}const templates={payment:o=>`Hi ${o.contact}, a payment for order ${o.id} (${o.product}) is outstanding. Could you please confirm when this will be arranged? We need it completed before the order can progress. Many thanks, Your PackPilot sales team.`,artwork:o=>`Hi ${o.contact}, we're awaiting artwork approval for order ${o.id}. Could you review and approve the proof so we can keep production on schedule? Many thanks.`,po:o=>`Hi ${o.contact}, could you please send the purchase order for ${o.id}? We need it before processing can continue. Many thanks.`,contract:o=>`Hi ${o.contact}, the signed contract for order ${o.id} is still outstanding. Could you return it when convenient so we can move forward? Many thanks.`,customs:o=>`Hi ${o.contact}, customs documents are needed for order ${o.id}. Could you provide the requested paperwork so the shipment can be released? Many thanks.`,general:o=>`Hi ${o.contact}, just checking in regarding order ${o.id} (${o.product}). Please let us know if there's anything outstanding on your side. Many thanks.`,delay:o=>`Hi ${o.contact}, we're reviewing the revised delivery estimate for order ${o.id}. We'll share a confirmed update as soon as it's available. Many thanks.`,stage:o=>`Hi ${o.contact}, we're following up on order ${o.id} and will update you on the next stage shortly. Many thanks.`};function nudge(id,kind){let o=get(id);if(lockedNudge(o,kind)){toast('Please wait 24 hours before nudging again');return}let msg=(templates[kind]||templates.general)(o);document.getElementById('overlay').innerHTML=`<div class="modalbg" onclick="if(event.target===this)closeOverlay()"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="nudgetitle"><div class="row between"><h2 id="nudgetitle">Preview reminder</h2><button class="btn tiny" onclick="closeOverlay()">✕</button></div><p class="small">${esc(o.customer)} · ${o.id} · <strong>Simulation only — no email or SMS is sent.</strong></p><label for="nudgemsg">Editable message</label><textarea id="nudgemsg" class="field" style="min-height:190px">${esc(msg)}</textarea><div class="row between wrap" style="margin-top:12px"><span class="small muted">${lastNudge(o,kind)}</span><div class="actions"><button class="btn" onclick="closeOverlay()">Cancel</button><button class="btn primary" onclick="sendNudge('${id}','${kind}')">Send (demo)</button></div></div></div></div>`;modalClose=closeOverlay;document.getElementById('nudgemsg').focus()}function sendNudge(id,kind){let o=get(id);if(lockedNudge(o,kind))return toast('24-hour cooldown active');let t=document.getElementById('nudgemsg').value.trim();if(!t)return toast('Enter a message first');o.nudges=o.nudges||{};o.nudges[kind]=new Date().toISOString();log(o,'Demo nudge sent ('+kind+'): '+t);closeOverlay();render();toast('Demo nudge logged — no message actually sent')}function settings(){let cfg;try{cfg=JSON.parse(localStorage.getItem('pp_settings'))||{email:true,sms:false,app:true,auto:false}}catch{cfg={email:true,sms:false,app:true,auto:false}}return head('Notifications','Choose which notifications your simulated workspace would use.')+`<div class="card" style="max-width:640px"><p>These are prototype preferences. Automatic reminders are a planned feature and are <strong>not</strong> sent in the background.</p>${[['email','Email notifications'],['sms','SMS notifications'],['app','In-app notifications'],['auto','Automatic reminders (planned)']].map(([k,v])=>`<label class="row between" style="padding:14px 0;border-bottom:1px solid var(--line)"><span>${v}</span><input type="checkbox" ${cfg[k]?'checked':''} onchange="setting('${k}',this.checked)"></label>`).join('')}</div>`}function setting(k,v){let c;try{c=JSON.parse(localStorage.getItem('pp_settings'))||{}}catch{c={}}c[k]=v;localStorage.setItem('pp_settings',JSON.stringify(c));toast('Demo preference saved')}function help(){return head('Quick guide','A two-minute tour of the PackPilot concept.')+`<div class="grid g2"><div class="card"><h3>1. Start with Needs attention</h3><p>Red and amber alerts are generated from missing documents, dates, payment balances and shipment delays.</p></div><div class="card"><h3>2. Open any order</h3><p>Review the 10-stage journey, documents, payment breakdown, activity history and notes.</p></div><div class="card"><h3>3. Try a nudge</h3><p>Preview and edit a message, then send a simulated reminder. It is logged and locked for 24 hours.</p></div><div class="card"><h3>4. Preview the customer portal</h3><p>Choose a customer to see only their orders, actions, shipping route and documents.</p></div></div><div class="card" style="margin-top:15px"><h3>What is real in this prototype?</h3><p>Working locally: filtering, sorting, alerts, stage updates, notes, demo nudges, local persistence, customer preview, CSV export and sample document downloads. Planned: real customer accounts, secure permissions, live email/SMS, payment processing, external carrier tracking and real file storage. No actual data is transmitted.</p></div>`}function callbackBanner(o){let c=activeCB(o.customer);let last=cbFor(o.customer)[0];return `<div class="callback-hero"><div class="row between wrap"><div><div class="eyebrow">Your packaging team is one call away</div><h3>Interested in new branded items? Let's talk.</h3><p class="small muted" style="margin:0">Ask ${esc(repName(o))} about new packaging, artwork or a quote.</p></div><button class="btn primary" onclick="requestCallback()" ${c?'disabled':''}>☎ ${c?'Call back already requested':'Request a call back'}</button></div>${last?`<div style="margin-top:13px"><span class="callback-status ${last.status.toLowerCase()}">☎ ${esc(last.status)}</span><span class="small muted" style="margin-left:9px">${last.status==='Requested'?'We have your request.':last.status==='Scheduled'?'Your rep has marked it scheduled.':'Your last request is complete.'}</span></div>`:''}</div>`}
+function requestCallback(){const o=get(selected)||orders.find(x=>x.customer===customer)||orders[0];const company=role==='customer'?customer:o.customer;const existing=activeCB(company);if(existing){toast('Call back already requested — '+existing.status.toLowerCase());return}const rep=orders.find(x=>x.customer===company)?.rep||'your sales rep';document.getElementById('overlay').innerHTML=`<div class="modalbg" onclick="if(event.target===this)closeOverlay()"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="cbtitle"><div class="row between"><div><div class="eyebrow">Sample customer request</div><h2 id="cbtitle" style="margin:5px 0">Request a call back</h2></div><button class="btn tiny" onclick="closeOverlay()" aria-label="Close">✕</button></div><p class="small muted">Interested in new branded items? Let's talk. ${esc(rep)} will see this in their sales workspace. No real message is sent.</p><form id="callbackform" class="cb-form" onsubmit="submitCallback(event)"><label>Name<input class="field" name="name" required maxlength="90" value="${esc(orders.find(x=>x.customer===company)?.contact||'')}"></label><label>Company<input class="field" name="company" required readonly value="${esc(company)}"></label><label>Phone number<input class="field" name="phone" type="tel" required placeholder="e.g. 087 123 4567" value="${esc(orders.find(x=>x.customer===company)?.phone||'087 000 0000')}"></label><label>Topic<select class="field" name="topic"><option>New branded packaging</option><option>New product or size</option><option>Change to existing artwork</option><option>Pricing or quote</option><option>Other</option></select></label><label>Preferred time<select class="field" name="time"><option>Morning</option><option>Afternoon</option><option>Anytime</option></select></label><label>Preferred day (optional)<input class="field" type="date" name="day" min="${new Date().toISOString().slice(0,10)}"></label><label class="wide">Preferred contact method<select class="field" name="method"><option value="phone">Phone</option><option value="email">Email</option><option value="video">Video call</option></select></label><label class="wide">Notes (optional)<textarea class="field" name="notes" rows="3" maxlength="500" placeholder="Anything you'd like us to know?"></textarea></label><div class="wide actions" style="justify-content:flex-end"><button type="button" class="btn" onclick="closeOverlay()">Cancel</button><button type="submit" class="btn primary">Send request</button></div></form></div></div>`;modalClose=closeOverlay;document.querySelector('#callbackform input').focus()}
+function submitCallback(e){e.preventDefault();const f=e.target;const v=Object.fromEntries(new FormData(f));const o=orders.find(x=>x.customer===v.company);if(!o)return toast('Sample customer not found');if(activeCB(v.company))return toast('Call back already requested');const c={id:'CB-'+Date.now(),customer:v.company,orderId:o.id,name:v.name.trim(),phone:v.phone.trim(),topic:v.topic,time:v.time,day:v.day,method:v.method,notes:v.notes.trim(),rep:o.rep,status:'Requested',created:new Date().toISOString(),updated:new Date().toISOString()};if(!c.name||!c.phone)return toast('Please enter your name and phone number');callbacks.push(c);cbSave();log(o,'Call back requested: '+c.topic+' · '+c.time+(c.notes?' · '+c.notes:''));document.getElementById('overlay').innerHTML=`<div class="modalbg"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="cbthanks"><div class="eyebrow">Request received · Demo</div><h2 id="cbthanks">Thanks, ${esc(c.name)}!</h2><p>${esc(c.rep)} will follow up within <strong>one working day</strong> (illustrative service target).</p><p class="small muted">Status: Requested → Scheduled → Completed. This request is stored only in your browser and no call has been booked automatically.</p><button class="btn primary" onclick="closeOverlay();render()">Back to my orders</button></div></div>`;modalClose=closeOverlay;render();document.querySelector('#cbthanks').focus?.()}
+function callbacksView(){let active=callbacks.filter(c=>c.status!=='Completed');return head('Call backs','High-priority customer requests. Demo requests are stored locally in this browser.')+`<div class="grid g3" style="margin-bottom:15px">${metric('New requests',callbacks.filter(c=>c.status==='Requested').length,'Awaiting a response','☎')}${metric('Scheduled',callbacks.filter(c=>c.status==='Scheduled').length,'Ready for follow-up','◷')}${metric('Completed',callbacks.filter(c=>c.status==='Completed').length,'Recorded in activity history','✓')}</div><div class="cb-list">${[...active,...callbacks.filter(c=>c.status==='Completed')].map(c=>`<div class="cb-item"><div class="row between wrap"><div><span class="pill ${c.status==='Requested'?'red':c.status==='Scheduled'?'blue':'green'}">${esc(c.status)}</span> <span class="small muted">${esc(c.orderId)} · ${new Date(c.created).toLocaleString('en-IE')}</span><h3 style="margin:9px 0 5px">${esc(c.customer)} · ${esc(c.name)}</h3><div class="small">${esc(c.topic)} · ${esc(c.time)}${c.day?' · '+esc(new Date(c.day+'T12:00:00').toLocaleDateString('en-IE')):''} · ${esc(c.method)}</div>${c.notes?`<p class="small muted">${esc(c.notes)}</p>`:''}</div><div class="callback-status ${c.status.toLowerCase()}">${esc(c.status)}</div></div><div class="actions"><button class="btn tiny" onclick="callCustomer('${c.id}')">☎ Call</button><button class="btn tiny" onclick="callbackStatus('${c.id}','Scheduled')" ${c.status!=='Requested'?'disabled':''}>Mark as scheduled</button><button class="btn tiny" onclick="callbackStatus('${c.id}','Completed')" ${c.status==='Completed'?'disabled':''}>Mark as done</button><button class="btn primary tiny" onclick="callbackQuote('${c.id}')">＋ Create a quote</button></div></div>`).join('')||'<div class="card empty">No call back requests yet. Switch to Customer preview to try the workflow.</div>'}</div>`}
+function callbackStatus(id,status){const c=callbacks.find(x=>x.id===id);if(!c||c.status==='Completed')return;c.status=status;c.updated=new Date().toISOString();cbSave();const o=get(c.orderId);if(o)log(o,'Call back '+status.toLowerCase()+' for '+c.customer);render();toast('Call back marked '+status.toLowerCase())}
+function callCustomer(id){const c=callbacks.find(x=>x.id===id);if(!c)return;document.getElementById('overlay').innerHTML=`<div class="modalbg" onclick="if(event.target===this)closeOverlay()"><div class="modal" role="dialog" aria-modal="true"><h2>Call ${esc(c.name)}</h2><p>${esc(c.customer)} · ${esc(c.phone)}</p><p class="small muted">This is a demo. You can copy the number, but PackPilot does not place a real call.</p><div class="actions"><button class="btn primary" onclick="navigator.clipboard?.writeText('${c.phone.replace(/[^+0-9 ]/g,'')}');toast('Phone number copied')">Copy phone number</button><button class="btn" onclick="closeOverlay()">Close</button></div></div></div>`;modalClose=closeOverlay}
+function callbackQuote(id){const c=callbacks.find(x=>x.id===id);if(!c)return;const o=get(c.orderId);if(o)log(o,'New quotation follow-up started from call back ('+c.topic+')');render();toast('Quote follow-up logged (demo) — no actual quote created')}
+function render(){document.getElementById('role').value=role;document.getElementById('bellcount').textContent=alerts().length+cbCount();nav();document.getElementById('views').innerHTML=({dashboard,orders:orderView,attention,callbacks:callbacksView,customer:customerView,payments:paymentView,settings,help}[view]||dashboard)()}render();
+  </script>
+ </body>
+</html>
