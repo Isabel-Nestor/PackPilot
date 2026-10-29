@@ -885,7 +885,7 @@ html,body {
   
  .tablewrap {
     border:0;
-    overflow:visible!important;
+    overflow:hidden!important;
     background:transparent
   }
   
@@ -909,7 +909,7 @@ html,body {
     border-radius:14px;
     background:#10263b;
     padding:12px;
-    overflow:hidden
+    overflow:visible
   }
   
  .tablewrap td {
@@ -1016,7 +1016,7 @@ html,body {
 
 .btn {
   position:relative;
-  overflow:hidden
+  overflow:visible
 }
 
 .pp-clicked {
@@ -1130,14 +1130,14 @@ html,body {
        Pilot
       </b>
      </a>
-     <button aria-label="Close menu" class="btn tiny mobileonly" onclick="toggleSide(false)">
+     <button ="Close menu" class="btn tiny mobileonly" onclick="toggleSide(false)">
       ✕
      </button>
     </div>
     <div class="eyebrow" style="padding:0 12px">
      Workspace
     </div>
-    <nav aria-label="Main navigation" id="nav">
+    <nav ="Main navigation" id="nav">
     </nav>
     <hr/>
     <p class="small muted" style="padding:0 12px">
@@ -1152,7 +1152,7 @@ html,body {
    <main class="main">
     <header class="top">
      <div class="row">
-      <button aria-label="Open menu" class="btn mobilemenu" onclick="toggleSide(true)">
+      <button ="Open menu" class="btn mobilemenu" onclick="toggleSide(true)">
        ☰
       </button>
       <div>
@@ -1171,7 +1171,7 @@ html,body {
       </div>
      </div>
      <div class="toptools">
-      <select aria-label="Choose demo role" class="field" id="role" onchange="setRole(this.value)" style="max-width:150px">
+      <select ="Choose demo role" class="field" id="role" onchange="setRole(this.value)" style="max-width:150px">
        <option value="rep">
         Sales rep
        </option>
